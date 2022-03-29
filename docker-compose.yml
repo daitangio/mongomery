@@ -1,0 +1,23 @@
+# Use root/trustn00ne as user/password credentials
+version: '3.1'
+
+services:
+
+  mongo:
+    image: mongo:5.0.6
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: trustn00ne
+    volumes:
+      - ./db:/data/db
+  mongo-express:
+    # Web-based MongoDB admin interface, written with Node.js and express
+    image: mongo-express
+    restart: always
+    ports:
+      - 8001:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: trustn00ne
+      ME_CONFIG_MONGODB_URL: mongodb://root:trustn00ne@mongo:27017/
